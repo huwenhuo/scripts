@@ -22,7 +22,8 @@ then
 fi
 
 bamdir=$(dirname ${1})
-fastqdir=$(dirname ${bamdir})/fastq/bam2fq_oq
+#fastqdir=$(dirname ${bamdir})/fastq/bam2fq_oq
+fastqdir=$2
 mkdir -p ${fastqdir}/tmpdir
 tmpdir=${fastqdir}/tmpdir
 
@@ -45,4 +46,9 @@ VALIDATION_STRINGENCY=SILENT \
 INPUT=${tmpdir}/${2}.origqual.reverted.final.bam \
 OUTPUT_PER_RG=true \
 RG_TAG=ID \
+FASTQ=${2}_R1.fastq \
+SECOND_END_FASTQ=${2}_R2.fastq \
 OUTPUT_DIR=${fastqdir}
+
+gzip ${fastqdir}/${2}_R1.fastq
+gzip ${fastqdir}/${2}_R2.fastq
